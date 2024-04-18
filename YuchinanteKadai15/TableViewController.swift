@@ -11,8 +11,8 @@ import UIKit
 class TableViewController: UITableViewController {
 
     // UserDefaultsに保存するキー名
-    private let KeyName = "Name"
-    private let KeyCheck = "Check"
+    private let keyName = "Name"
+    private let keyCheck = "Check"
 
     // テーブルビューに表示するアイテムの配列
     private var items: [[String: Any]] = []
@@ -23,10 +23,10 @@ class TableViewController: UITableViewController {
 
         // アイテムの初期化
         items = [
-            [KeyName: "りんご", KeyCheck: false],
-            [KeyName: "みかん", KeyCheck: true],
-            [KeyName: "バナナ", KeyCheck: false],
-            [KeyName: "パイナップル", KeyCheck: true],
+            [keyName: "りんご", keyCheck: false],
+            [keyName: "みかん", keyCheck: true],
+            [keyName: "バナナ", keyCheck: false],
+            [keyName: "パイナップル", keyCheck: true]
         ]
     }
 
@@ -43,8 +43,8 @@ class TableViewController: UITableViewController {
         // アイテムを取得
         let item = items[indexPath.row]
 
-        //セルの表示を設定するメソッドを呼び出してセルを更新
-        cell.configure(name: (item[KeyName] as? String) ?? "", isChecked: (item[KeyCheck] as? Bool) ?? false)
+        // セルの表示を設定するメソッドを呼び出してセルを更新
+        cell.configure(name: (item[keyName] as? String) ?? "", isChecked: (item[keyCheck] as? Bool) ?? false)
 
         // 更新されたセルを返す
         return cell
@@ -53,8 +53,8 @@ class TableViewController: UITableViewController {
     // ユーザーがテーブルビューのセルを選択した時の処理
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // チェック状態を反転させる
-        if let check = items[indexPath.row][KeyCheck] as? Bool {
-            items[indexPath.row][KeyCheck] = !check
+        if let check = items[indexPath.row][keyCheck] as? Bool {
+            items[indexPath.row][keyCheck] = !check
             // テーブルビューのセルを再読み込みして更新する
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
@@ -69,7 +69,7 @@ class TableViewController: UITableViewController {
         if let add = segue.source as? AddItemViewController {
 
             // アイテム名とチェック状態を辞書型に格納し、itemsに追加する
-            let item: [String: Any] = [KeyName: add.name, KeyCheck: false]
+            let item: [String: Any] = [keyName: add.name, keyCheck: false]
             items.append(item)
 
             // テーブルビューをリロードして表示を更新する
@@ -77,4 +77,3 @@ class TableViewController: UITableViewController {
         }
     }
 }
-
